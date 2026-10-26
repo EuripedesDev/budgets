@@ -1,0 +1,553 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Proposta Stampo</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap">
+<style>
+/* Layout: proposta em formato de documento — navegação fixa, seções de largura total alternando preto, cinza-claro e branco, texto corrido alinhado à esquerda, tabelas com linhas finas. Visual fixo (não segue tema claro/escuro). Identidade Tech: Montserrat, ícone e dourado */
+:root{
+  --black:#000000;--ink:#1d1d1f;--tile-dark:#161617;--tile-dark-2:#1d1d1f;
+  --light:#f5f5f7;--white:#ffffff;
+  --text-dark:#1d1d1f;--text-dark-2:#6e6e73;--text-light:#f5f5f7;--text-light-2:#a1a1a6;
+  --hair-dark:#d2d2d7;--hair-light:#333336;
+  --gold-hi:#f0a863;--gold-mid:#c48a45;--gold-lo:#8a5e24;--gold-text:#8a5a1c;
+  --gold-grad:linear-gradient(120deg,#ffd9a8 0%,#f0a863 35%,#c48a45 65%,#8a5e24 100%);
+  --f:"Montserrat",ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;
+  color-scheme:light;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{animation:none!important;transition:none!important}}
+body{margin:0;background:var(--white);color:var(--text-dark);font-family:var(--f);font-size:17px;line-height:1.5;letter-spacing:-.01em;-webkit-font-smoothing:antialiased}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:30;background:rgba(22,22,23,.92)}
+h1,h2,h3,h4,p{margin:0}
+h1,h2,h3{text-wrap:balance;letter-spacing:-.025em;line-height:1.07}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--gold-hi);outline-offset:3px;border-radius:4px}
+.in{max-width:1024px;margin:0 auto;padding-left:max(22px,env(safe-area-inset-left,0px));padding-right:max(22px,env(safe-area-inset-right,0px))}
+.num{font-variant-numeric:tabular-nums}
+.gold{background:var(--gold-grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+
+/* navegação local */
+.lnav{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:rgba(22,22,23,.86);backdrop-filter:saturate(180%) blur(18px);-webkit-backdrop-filter:saturate(180%) blur(18px);color:var(--text-light);border-bottom:1px solid rgba(255,255,255,.08)}
+.lnav .in{display:flex;align-items:center;gap:20px;height:52px}
+.lnav .name{display:flex;align-items:center;gap:9px;font-weight:600;font-size:19px;white-space:nowrap;text-decoration:none}
+.lnav .name img{height:22px;width:auto}
+.lnav nav{margin-left:auto;display:flex;gap:20px;font-size:12.5px;color:var(--text-light-2)}
+.lnav nav a{text-decoration:none}
+.lnav nav a:hover{color:var(--text-light)}
+.pill{display:inline-block;background:var(--gold-grad);color:#1a1209;font-weight:700;font-size:12.5px;padding:5px 14px;border-radius:99px;text-decoration:none;white-space:nowrap}
+@media (max-width:900px){.lnav nav{display:none}.lnav .pill{margin-left:auto}}
+
+/* seções */
+.sec{padding-block:100px}
+.sec.dark{background:var(--black);color:var(--text-light)}
+.sec.light{background:var(--light)}
+.sec.white{background:var(--white)}
+@media (max-width:640px){.sec{padding-block:68px}}
+
+/* hero */
+.hero{background:var(--black);color:var(--text-light);text-align:center;overflow:hidden}
+.hero .in{padding-block:84px 96px;display:grid;justify-items:center;gap:18px}
+.hero .mark{position:relative;width:118px;height:150px;display:grid;place-items:center;margin-bottom:10px}
+.hero .mark::before{content:"";position:absolute;inset:-60px;background:radial-gradient(closest-side,rgba(240,168,99,.32),rgba(240,168,99,0));animation:glow 4s ease-in-out infinite alternate}
+.hero .mark img{position:relative;height:150px;width:auto}
+@keyframes glow{from{opacity:.65;transform:scale(.95)}to{opacity:1;transform:scale(1.05)}}
+.hero .kicker{font-size:19px;font-weight:600;color:var(--text-light-2)}
+.hero h1{font-size:clamp(44px,8.4vw,88px);font-weight:800;max-width:13ch}
+.hero .sub{font-size:clamp(19px,2.6vw,25px);font-weight:500;color:var(--text-light-2);max-width:36ch}
+.ctas{display:flex;gap:28px;flex-wrap:wrap;justify-content:center;margin-top:10px;font-size:18px}
+.ctas a{color:var(--gold-hi);text-decoration:none}
+.ctas a:hover{text-decoration:underline}
+.ctas .btn{background:var(--gold-grad);color:#1a1209;padding:11px 22px;border-radius:99px;font-weight:700;font-size:16px}
+.ctas .btn:hover{text-decoration:none;filter:brightness(1.05)}
+.hero .meta{display:flex;gap:10px 32px;flex-wrap:wrap;justify-content:center;font-size:14px;color:var(--text-light-2);margin-top:34px}
+.hero .meta b{color:var(--text-light);font-weight:600}
+
+/* cabeçalho de documento (alinhado à esquerda) */
+.dhead{display:grid;gap:14px;max-width:760px;margin-bottom:44px}
+.eyebrow{font-size:15px;font-weight:700;color:var(--gold-text)}
+.dark .eyebrow{color:var(--gold-hi)}
+.dhead h2{font-size:clamp(34px,5vw,54px);font-weight:700}
+.dhead p{font-size:clamp(18px,2vw,21px);font-weight:500;color:var(--text-dark-2);max-width:52ch}
+.dark .dhead p{color:var(--text-light-2)}
+
+/* texto corrido */
+.prose{display:grid;gap:18px;max-width:68ch;font-size:17.5px;line-height:1.65;color:var(--text-dark)}
+.dark .prose{color:var(--text-light)}
+.prose b{font-weight:700}
+.prose .q{color:var(--text-dark-2)}
+.dark .prose .q{color:var(--text-light-2)}
+.cols{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:22px 56px}
+.cols .prose{max-width:none}
+@media (max-width:760px){.cols{grid-template-columns:1fr}}
+h3.sub{font-size:clamp(22px,2.6vw,27px);font-weight:700;margin:56px 0 18px}
+h3.sub:first-child{margin-top:0}
+
+/* fluxo em linha */
+.flow{display:flex;flex-wrap:wrap;gap:10px 0;align-items:center;margin-top:40px;padding:22px 0;border-top:1px solid var(--hair-dark);border-bottom:1px solid var(--hair-dark);font-size:15px;font-weight:600}
+.flow span{white-space:nowrap}
+.flow i{font-style:normal;color:var(--gold-mid);padding:0 14px}
+
+/* lista de módulos em linhas */
+.mods{list-style:none;margin:0;padding:0}
+.mods li{display:grid;grid-template-columns:72px minmax(0,1fr);gap:8px 24px;padding:30px 0;border-top:1px solid var(--hair-dark)}
+.mods li:last-child{border-bottom:1px solid var(--hair-dark)}
+.mods .n{font-size:34px;font-weight:800;line-height:1;letter-spacing:-.04em}
+.mods h4{font-size:22px;font-weight:700;letter-spacing:-.02em;margin-bottom:8px}
+.mods p{font-size:16.5px;line-height:1.65;color:var(--text-dark-2);max-width:70ch}
+@media (max-width:560px){.mods li{grid-template-columns:1fr}.mods .n{font-size:28px}}
+
+/* listas simples */
+.plain{margin:0;padding:0;list-style:none;display:grid;gap:12px;font-size:16.5px;line-height:1.55}
+.plain li{padding-left:20px;position:relative}
+.plain li::before{content:"";position:absolute;left:0;top:10px;width:7px;height:7px;border-radius:50%;background:var(--gold-mid)}
+.plain.x li::before{background:var(--hair-dark)}
+.dark .plain.x li::before{background:var(--hair-light)}
+ol.steps{margin:0;padding-left:24px;display:grid;gap:14px;font-size:16.5px;line-height:1.6;max-width:70ch}
+ol.steps li::marker{color:var(--gold-text);font-weight:700}
+.dark ol.steps li::marker{color:var(--gold-hi)}
+
+/* tabelas de documento */
+.tablewrap{overflow-x:auto}
+.tbl{width:100%;border-collapse:collapse;min-width:520px;font-size:15.5px}
+.tbl th{text-align:left;font-size:13px;font-weight:700;color:var(--gold-text);padding:0 12px 12px 0;border-bottom:1px solid var(--text-dark)}
+.tbl td{padding:15px 12px 15px 0;border-bottom:1px solid var(--hair-dark);vertical-align:top;line-height:1.5}
+.tbl td:first-child{font-weight:600;width:34%}
+.tbl.perm td:not(:first-child),.tbl.perm th:not(:first-child){text-align:center;width:auto}
+.tbl.perm td:first-child{width:46%}
+.tbl .no{color:var(--text-dark-2)}
+.tbl tr.sh td{padding-top:30px;font-size:13px;font-weight:700;color:var(--gold-text);border-bottom-color:var(--text-dark)}
+.dark .tbl th,.dark .tbl tr.sh td{color:var(--gold-hi);border-bottom-color:var(--text-light-2)}
+.dark .tbl td{border-bottom-color:var(--hair-light)}
+.dark .tbl .no{color:var(--text-light-2)}
+
+/* valores */
+.amount{display:grid;gap:4px;margin:8px 0 36px}
+.amount small{font-size:15px;font-weight:700;color:var(--gold-text)}
+.dark .amount small{color:var(--gold-hi)}
+.amount strong{font-size:clamp(52px,9vw,96px);font-weight:800;letter-spacing:-.045em;line-height:1}
+.vals{width:100%;border-collapse:collapse;font-size:18px;max-width:720px}
+.vals td{padding:20px 0;border-bottom:1px solid var(--hair-dark);font-weight:500}
+.vals td.v{text-align:right;white-space:nowrap;font-variant-numeric:tabular-nums;font-weight:600}
+.vals tr.total td{border-bottom:0;padding-top:26px;font-size:21px;font-weight:700}
+.vals tr.total td.v{font-size:clamp(28px,4vw,36px);font-weight:800}
+.fine{margin-top:22px;font-size:14px;color:var(--text-dark-2);max-width:68ch}
+
+/* fechamento */
+.end{text-align:center}
+.end .in{display:grid;justify-items:center;gap:20px}
+.end img{height:84px;width:auto}
+.end h2{font-size:clamp(44px,8vw,80px);font-weight:800}
+.end ol{list-style:none;margin:20px 0 0;padding:0;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:0 28px;text-align:left;width:100%}
+.end li{border-top:1px solid var(--hair-light);padding:22px 0;display:grid;gap:8px;align-content:start;font-size:16px;font-weight:500;color:var(--text-light-2)}
+.end li b{font-size:30px;font-weight:800;line-height:1}
+@media (max-width:860px){.end ol{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:480px){.end ol{grid-template-columns:1fr}}
+footer{background:var(--light);color:var(--text-dark-2);font-size:12.5px}
+footer .in{padding-block:22px;display:flex;flex-wrap:wrap;gap:8px 24px;justify-content:space-between}
+footer b{color:var(--text-dark);font-weight:600}
+</style>
+</head>
+<body>
+
+<div class="lnav">
+  <div class="in">
+    <a class="name" href="#topo"><img src="data:image/png;base64,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" alt="" width="15" height="22">Stampo</a>
+    <nav aria-label="Seções">
+      <a href="#visao">Visão geral</a>
+      <a href="#modulos">Módulos</a>
+      <a href="#fabrica">Chão de fábrica</a>
+      <a href="#dashboard">Dashboard</a>
+      <a href="#seguranca">Segurança</a>
+      <a href="#investimento">Investimento</a>
+      <a href="#ia">Stampo.IA</a>
+    </nav>
+    <a class="pill" href="#valores">Ver valores</a>
+  </div>
+</div>
+
+<header class="hero" id="topo">
+  <div class="in">
+    <div class="mark"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGwAAACgCAYAAADpTIkCAAAcbUlEQVR42u2de5xcVZXvf2vvfaqTAAIBgRkUMhEZBhCROBcRGB4OgqCYCF0N8oGIOo4yApLupFXEkkFMP0Amw2MUkIgMoxMfiM69Vy+QBwjIMKCiRh4Kwmd0JN2NBk1Id5291v3jnKo6j31OVadfVd21Px/o6vOoTu1vrbV/a5299yK0W6w9t3b5PENysCI5nKAOJ5KDFNFeEFpAICiNMQKNaIVfC9FmxfqnY9v9za/+4G1/nI5/H7URAU+vOa3D22XhW7VSZwI4kQivM1rvphVBEQWdFP5URFCKQAQQCNbKK4rwghA9pEm+Owq1fmHx5q1tYFPQnrjpvXvuouUcpej9ILx5fsHAsoBZgs4hCv8L4FReq8hxTQrGKBSMArPAsjxDwB0s5pZdizf9rg1sEtqG0gnmz/fb971aq96C0YeKAL6VAEwmnMDCiAiKojAJCuF9RCh4GgWjUS7b/wbJDVutuXHf4k1/agPbWav65/ccoo25pkOrM4gIPjMIoeurggh/Ig2n4hYpclxFYFYge0ajYBTGfP4vZqxY0PmFB9rAxtl+tOasYodRawqe3m+sbFMurzFo0Wtr16mY66xZZuBmeZvPKC04+wvXtoE12B5fs6ynQ+vPkSLPsqQ6tgYiAYcICnGLyoIWez/UXhsdjHE7yvYL83m/S6l45VgbWEYTgB67btnnOjz9cRGBCCLuyw0tdawKzQEHjUFTijC/w8Mro+W18xcUPkKnXz+6M59HzXZYj15z5uqCoY/7PsNagYhAgOBnCDD9GuDYMYAhYJHYcRaBIOdeAIzgd8uCV0bLmN/hXbhje/n9O/uZZi0wEdAj15y5uuDp3jGfYYUTHY1qZ3MMWhRIAibSMKvQIBlfgtoXJAgZGELSKaWSagOLWNbDg+9cXTCqd8xnMEvVSiqdyDEIEasL7g9fJzqfkT4WfR2x3NSXIPw7lgXC8iqcuHN9b2YjsAf73rm6w+jeMd8CEowhAQaCEEBSARscAwWdC6LA/4WZDYhACAj/Fwx+4RuIEGrvUnn/yn3R46j+bUBgFGFU5HE66Uq/DQzAA31n9HmGess+QwCoKh2qIqqBqXU0g6CQgAYCQ6Cq0GqdzySBiUh4DSj4exGwgtr7iAjmFTS2jZZ/x9A7Le/1rMpgXP2OPs9TvZaDsSXoKoroYYrpY0oJZQoNiVJCmsgtsImSJynyp6j6lSh4GtbKS6PM5y4855ZH5zow2nD1qX0Fo3v9UAlWOjEGJQaN3NAIcdCO+ykJLRUgxaEVjIZv+SXfl+Krz7vtvol80JYHJgI6zpy6umB0b9lK6M0IUbNIQaO4mZEDZCa0jOMklLJAAuAFSeERtlx89QVr10/087Y0MAHo/5lTVhd0aFlIwMiCJlTHtVEVbApOBsxAa8SPFrSGZRmxZe7a9323r5+Mz6xb2bK+hxAWc00n1EwmGxo5xq6qB6OUG2wMWvzaglFgkeGyxTl/fuHt903W525ZYH8tf9vf4anecggrNfgnOp4oMY5Vrq/CzLu3ci3S4x9R4u8CBaMhguEdbM854MI77pvMz92SwL7zqZP6C0avsraSG6SUNVVfR4UCUXysilxHyQEuAo1c94BqX4LI9Z7WYJaRMvicRRfeed9kf/aWA/btT57UX/D0KssCjnU23NCq1pBtQajzPpQ65hAgAnhGw4q8VBZ0Lf7A5MNqNWD0rU+e0N/h6VU+V0JSyu5sjB8aEUVCXTc0QVJVBtd6RgUCg7l40N99df1UdUJLABMBHTF6Ql+H0atS0j0LGmVDk+S4Vk++5wTGFYFhRUbKvhQP/vDX1k9lX+hWgPWNjx/f58UsK9m3SQBwZzdA6RjZoQrHA80zGiIybC13HXLRuvVT3R+62WGtW3V8n2fUKt9GpDuRA0AEWkK1pca0XCkft07KGRsLWkFYhsdEug696Ovrp6NPmhkYHbL9+D5PU2hZCTdHcUVHmWMUnNfXxrQ6QoXcoD2jwIJha9F1+EenB1ZTA7uz+9h+o2mV5eijjCS0qA1Q2ppy3R1FLqVEGBA9n46/PKPBVkZ8sV1HXPLN9dPZL80IjO647Jh+z6gAVsqtJcDEErIZsVgKWgJKRi4x9r7hY65CqAbFSvHIj921fro7p9mA0e2XHROMWRx9AOjofMmBJvWg5as+FzQJpTtbjFhG8agV0w+rqYCJgA78/dH9BaNW+VXpHu3IRGdXn+w6oBFVpT81AI0yrC8KzdMKIhgW5uKbu+/eMFP9pJsF1tpLju7zPFWT7jlKMAYtkfOLxlipDHoj0BxhgBcmcq1I8X91f2fDTPaVbgZYX7rkr/uMVukMBhqERnFoBKq+D1E6BZUHTRIPKb3gEckwLBXfsnJmYc04MAHo5uEl/Z4Og2JxiIo8aEirx/RMAFfWA84QgRKS3hgFZh4uW+o67uPf3dAM3mhGge33D0sGPKVWVtRgdYUI4muyoo9AojN0QbXsBlUVH1Uti5zKkiKzn+KWGc3aeyYIim1Zuk64/H+vR5O0mQJGN35kyYCnaaXlyjwk12ON2hhUScy6HkJSnnR3nSN3zrGqBrUCWxkpW3SddMX/bRpYMwWMrv/7N/V7umZZcGYxamNQFJrTVbqg5Y1b4sovUtWymGVkVGzxlCu+31Swph2YCGjv3x3Z72kdwBL3OOSC5gSQmfxNi4e06nSoQU2wIsNipfj2T9+zAU3Y9HTCWvOhI6uWlSnPM6ChAWiUcU8mtIhC9LSCFRm2Y37x7Vfe25Swpg2YCGjNB4/oNwk36E4njQNa9TjlQqM6WQ9TmTDjc/H0q9Y3LaxpASYAXfffaVjVb38enIYtENWMvTigkSMdVXkfEwiMYctSfGeTw5oOYLTrhYcPeFqt9F0CIwotIxB2Ho+4uuja4+gXILrmOPWciwCRUA0yhsuQ4pktAGuqgVH/8sMHPKN6/Mg2CsiCNl63SDmJ4ZxEbuW1ZwgSPM8qLr26NWBNJTBavfzwAc9QTyAwIpMv60CjhqEh//lXBrQgziIwy4gwF5eu3tgysKYEmABUOP/QgYJRPcwceUQSh0bkhoZIxiMXGrLHsgoY15z5inQf81E8u//+loLlklwTaqUSlPfLQ/sLHvVUlXskxVRLK8WhRReDRzcwoYiYyDqf3KIhdU3k3iDdhCEBFTv7N21EC7ZJs7ASoLzXHNJvDPVYQW12E+W4NDgsbTzxWc4UgGQaSxsFYRryrS12DT7QkrAmDZgI6IGnDxkwJrCsJCzKASBA41DGAa3yfJOAQLqzDAlL8dxrH2xZWJMFjPTTBw9oo3oq6SZyzDoiIvf4VXVf6SA4uuCgmsWPvI6PW44MBwFaK4jIkBUqntfisCYMTACicw8e0Fr1WInMwaB8aMl4KbUsNRFzUYawSE3GSVib0QoMGRafi+df93DLw5oQMAHo010HD3qaeqxIsFofGct6MlwYZSjEtHzPmw3lfm20gmUZJpbO89c8Mitg7TQwAehTXQcNepq6LadFZ03hucAgvQyo3vMtZ8YDmWkqEyZyBehcPotg7RQwEdDlmw8aLGjVzZJY65FIMeVCq871c4uKJPTsjEcikasVWGRIhDvf/8+PbsIsa+MCVgLUPZsXD3pGdcey7lmPMRqARvUyFBnQXKAranCMufihGx6bdbDGBaxUgirvvXhAh7BSnR2D4hh3KGPcii09dVmP25KSaawKLB9S/MiNj23ELG0N7XckAI3+bNGA0tRdWaZa2VsJ1Z+1fZiCw1L7mdhcC0jv81S5Jn6u9i+Q2h+J7fEEAFoBlnnI+rMbVqMWRq8sWzxojOrmyCTP6Dc8nn6KW1os/kpYGiUtLetcIviO5giDOAtDPqP4D1+c3bAaAUarli0aNIa6mWtT1p0BcSyzkS3LKSH5KWtFivNcIs4KnxSz2OLFX/zRrIeVC0wEtO2JRVXLSoqA8UAjBzRqAJpkKEGJxFm+L52X3vKTOQErEejEBca2Jw4YMFp3M8evpsSU6LghUaZ7TGXt4XaBtYy76xhVc4MQGRJQ56W3/HgT5lDTbliLBrRW3WzFMfMoOjM3DS01WzfH0pBlaRS35OSYxSJDllTnZXMMVgpYqQT1pycWDRpN3Wwju/0l1/wm5rHXg4YcaOIat5LpphCaUQoiskVYit1femLOwYrJegHoT08sGvQUrbA2vlq/KqlR3WwT1c0iQwlelfeIS34kJH80FBDn+Yh0D/+UQKCIwMIBrLU/m5OwqsAEoJXLQlgsmcFY5ElXLWZKnJbELRIBixi0JNx4DFY9JwJNBMs85AvmNKyqS9y2bNHnqgvA66mUxJhGGe6xMcmfzowQUUzEaEWA4LeKcNaqL//8B5jjjVYsPfBcRXQHEbRIgzc5hEhyDWM6cI7nDuPPMBNLhiKvSWHbmG+7f//Kjns9pbxm6jzLoHm+3rZ9vnpl3qjeMfidp6a8hhj1LF30olLYh6VJvkGIzMcI9kv2RWQ7gbzm/MqLD6EySF6C4LcgPAfIowr02Pzy2BNX/sf/bJ9cYMsWPUuEvxBpYjfQAgVHorElAShbsQQ8A8F9UPLNrXvv/YObb36sPAkWduCPlVJv5GYm1qIZCVIETUDZihDkPwF1644Fet31d/7y5YmoxC2t8A1utSYAmAVlG0SaSqmjtcYt817xH1yx7IDzSifsXM0ABdAz7e6dDoEi8K1AER3uKf2v2/da9N3L3r34DeMGJoofb3fn9IKzLNCKTjOa169YdsAHxxWHHff6vTSTXECztA5LszYWQBEWKKXOPOYvd194yr57bNz0/Na69VgUv7LtFwCeo/ZANiPQhAWeUZdsW0h3XvruA/eoC+zae17cRsBGrdodOFPipGwFnqb3eApf6+1cvHs9lQhLuNu2df2MtrIVeEadaq299eLTDurIBbabXvAgizyjVdstzig0X+ApdbY3z1+dKToAYNPmobFjD91zD63oZG7b2cy6SAG0wlveesirfvnQk1t/6rQwAPC1v7Zs+cW2kc38mEYgEtC1PUtf+zqnhQHADze//Mdj/nKPXT2jTmxb2cxD87Ta1Qrt//auP3xj06baU6+YNhQ7dsOYlV/ptsRvChGiCcu2/WTRu5wWBgAPP/2n7ccduseLAM6SOVb2vhmbUkQCef3Rb9jtjh9uftlPWRgADH7r1+ssyx2ebvOa6RaksNQS5asznC6x4hk9lFf4Pj9h2tBmvBEAEvpIqRSwcuY3+r792xHLeJ9l3tKOzWbeygAct+3HBx6RCQwAPv+d539kLV3ALFtVO201s4rRqAIUllUsLrd1LzvgDEXqTkW0u23r/RlpWhF8Kz/c9Y2/Pr4hf9e97ICTFdRXtKb9fduGNu3jGAEi8nJZ8JaGVmA+/OTW5447bK/vM/MbjaYD2shmQOKT6lAkDzW8ZPbBX/x+aMmSvb+hxrigSJZopUzbQ05rTAZh+c1OScDuZQecrEh9VhMdIzUl025TPI5ZK/fs1D4dDz+59blT9tn9zh3z5FkIDtSK9tOK0MY21ZJRdkw4yOo+Zd9dsMv8M5TCBSL4G6NpNwAIlthGF5a324SFB8uWSY2KV75n8etJ+GQBThHBUSD8mVY0L1mSstnjHj+6Nq6JgDHL1in791zU+epdF/Cui0VwIIksAvBnAPYEZH7zehwSIiFPmaWksHtt+ZokrksiTq3GcgwPtbVYstNfJvHbeadE++x5h1yhFD5lBQXh2qLC2iLEsOsiMKW2kjFyfXSdWwS8xDGPZ8WQiLzcTjpF+uTq8/+qzxj1jywoRMsyprcIjBc8TW7ZFFsrB8SWULlqcDZiNYGoo/9sW1gV1mGrjUZvpV50dekuorv6JK0mvQwY0etTx+OWJgl3KTmwmPlFQE5vWxhAq5cftrpg0MvV/fXjC+2jixLJYWnRzaQB9w5BLkuL1gbMMjOtCCIyzJD3Dt71wuN6rtPqW35Yn6ept1rHjFy7qsbHkpTipVg16Ri0pNvMLppFKWYVWL7lcz7/7RfWA01e2n6q28Dyw/qMUb2cWNtNrm4kBwyKV6ilnOuSy4Rj+3FFvg3kgnX3C/dVIc5ZWBe+oc/TqtdG6kVTpOSic6/isM5LrHNTi/Ld0OKVnOKiI7nHiVEEFhlh4a6KZc1lYPT5D7yhz2jqjeVA83bmSbi4bGiUDy1ZcxNp2FoRGDLCwsVr73ohVSFwrgGj695/RJ8xqjpmJbeeyN5tLr7buguaaz/O8UDToWWJSOc1d73gLDMyZ4AJQAs/eESfNmoVR2C59gtJl2yhlBVlQ8sWLXnQtFIQyDALFwe/9XxmTZi5AowWfujIWHFvcphDGppju0FKipJ6QsQNLXqd0YHAKFvquuauX+cW8JkLwOj6EFZ8px9Kua84NDigOeS9c2xLa83U/eH/TCXOInQNfvPZulVtZz2w6z98VL8Xg0UOC3KlndyuL3neVbXC9QVwudJADWLYAl39X3+2oRLEsxrYDR8+qr8Q7qGVMpOdhoZMaDQOaCaoCTPiQxqGNZuB0U0XvTmEFRcYVAdankrM24efksnfjGQxgaA1QVhGLNDZ9/Vnx1V0btYBEwHtP/zmPk/TKp/dOSRyurDGoGVZWnpXOjc0rQjCGAakePW6X427QuCsAiYA3Tq8pN8zepXPYXY8aSWpei/5sVV9aGgYmlYKEB5m0cWr1j2zU+Uc9WyCddvFR/cbo1day6lCck7X5ohw86C59uN3j33p48EaBRmyVnVdte6pna69qWcLrLUXH93vGbXSD2G5gaSFgeSpPsdej5KAJq6AOPE+RhMYGB5jnPPZf396QoVSZwWwv7j06H7PqFU+c+gGyW1FSTUXXip5qhDx5ylVaIl4jjL29A/UIIatla6rvvb0+ol+1lYHRrdfdky/F2YwUh3sSC1lZTLcUt6VHMwZ5xJZDKMprFwhxc989elJKUGsW9kNvu5jx/YXPFpVm5aWVbU2XeclqzpTKneYUpjICJLTbtAyRixLsfRvT01aveiWBCYCuvOPx/YXPFoZhVWvpgvlFPrOBUsO9+eK5cLXYTGEYWbu/PS/PbVxMj+7bkVYX115bH/BqBqsjMp97pouyK+9mQs2Ghy7VGclzpJhWO68/M7JhdVywERA/957XL+n9crUmEXussDuus9UF1rmNciGFiRyMeSDuj75r7/YOBV9oFsJ1tcjsETSUMShDClSZzPTinIyHUkVmfVYRiuCEIaE0fWJr/x8w1T1Q6sAo8NH/6a/YPTKcnQFKMEhuR3FDBwxk0souKElpXw65jJKgSFD7EtX7xTCahVg9M1P1GDVCvjUqzibbUXkrAuNjJxiXt6xWsBnmEmKq778841T3RnNDozu+sSJ/Z6nV/o+xysh5UALqkpkVK7NhEYNQYveZzSBWYYtcefKL009rKYGJgAddfmJ/Z7RQbpJsmtiIiMvmDzt6vT0e2Rk7xNTBLQmMGPY923nyrXTA6tpgZVKJfXy8Xqg4IWwcopz50PLuM5Vp8xR2McJLcxgiMgQQJ0rbvvptFZbajpgIqDtG8xAweiesmU0WiWdxgUtwz3mJIBrQXEo3a0UP3brT6a9NJZuNlj/p/S2gYKne8o+x5Oy44AmDcZZeWOaC1qYyB1icHGmCqU2DTAB6Ht0ykCHF1iWREocURhjAYlYyNXxmflER7Y++QAzJRkRyboHllVm6rrk5pkrQdw0wN76mVMGC57uiY1ZyZ5NQaNMaGgImuM6x7kg605DPqN4yc0zW9xbN4MbPE6fOthR0D2+H5k3mCnLkwowG0oKbkPQ4ucCWBgeIyle/C8zX4ldzzSsDVefOtBh0m4wZWGOwtxUD2oD0NLna+e84BHJkCh0XnTDY01Re3PGgJVKJUUPLQgEhlO611xUvqWRI9aicVla+n2oOmZZXzr//sb/appCqXpmYEGd3LHLQMHTPbVErssN5h2nzM5GXbfqnkRaEThGK7DwkLW2+KGbHmuqqrZ6JizrbfN3GZjn6e6yH7jButI9EwRyoO3MY5fqjNwtZd/v+rsbZ37MmlFgIiDvkd0GOzzdXbaSDYsoVaVdnInYHJiuaQCIw5XE+cCyZIhFuj5w/aNNB2vagZ2267sGOwq6p5ylBnMtKe0iybUcxHEfud4j4R4rsHyW4oVrHmlKWNMGTAT0jt3OvCYIih1jFrki2PouktCYrHfnDmv/PmMUmGXIinS+758eaepK7Ho6YD163dLBDqO7y8kZuXXjLULmWtSs/OG4oFHVssqWO5df98OmhjXlwEqlktrtx3sGsCqTPHNygXlBslM8NCJScp6ZGa1gGUNjvt8SsKYUWKkEtXSPhQMdnul2BsUNQ8uW6dRgUth13tMKLNjiixTPv/ahloA1ZcBKpZJauufegx0FHYHlGJ/qduz4YqtG8owABWOWYItYLp47+IOWgTUlwESE9vnZDVVYLOFYkwUtUyVmWd4EoIWwRGSL9W2x2GKwJh2YALR5n82DBaO7x0JYNT4BNMlQerHjGR4xX1nWD5ArQTELFc/uv7/lYE0qMBHQL/bpDIJin8FwqzlKWBi5Hokkg+OsxywNQpNwzLIiQ5ZRfM/qjS0Ja9KAiQg99YUnB+d5tTGL8sRDhtJzQaPMjH0daJHjnlGwLEMsOHvZ5zbejxZuEwZWKpXU/k9+8Zp5Bd095kez7tFNRRxz/DKUXmp5awbohsZBCizLZxmyLGcvvXpDS8OaMLB16zr1ad4fBucV9Ioxa4OpaBWrS7nBbGjZHY/x3ZM47mkFC9lSBncuvar1YQGAmcjNS7aaz8zv0Ct2lH1AgtqolQ5TImAKJ08HOwwDoMjxUKYIAZX7qtngyu/h29WyxOH2q8E9lLwnPB4W/QSzbLFMnUuvnB2wJmRhz916/puMorVWRLPAmdejukqQIu6yEWmPug8kg3pbGiyyxS9z8Yx/vHfWwAJyCr7VJU04eV6HLlRgEVFsT9zKEtLaYrfaWEaRc+E6uMg5qj6op6x7knFWBGLBaIhgS5m5ePpV927CLGs77RJFxNT6Ku6aCJWYy+G2qq4ueC3hOULSLVZcYXVQrLnOqCuNHPcMwVreArGdp5dml2VNGBgZtWGszNYopS2H6jDsbAUJ4rC641PWOam5wuqwKGloEXieIfiWh5ht59uuuGdWwpqQS3zt8tsfZcG1BU9Dkaq6rOrYFHGRcRcY/b2Rc7XVKFnv1+EpMON3ED5rNsOaEDAiktc8v/gTo2P+oKcVjFYAASrW+RmdnIKRB622N3zs/cLf53sazPIrsXTGiZd//wHM8jYplSF+8+ULPgpBn9a0y2jZhwjA1VolYfUEkWqdkuoxZJxL3Vf5PXjNEoTnBaMwWrb3j/r0gZM++d1fYg60SakMsf/7vnKDL/YdPvPjCzo8aE0Oa0q4QMo5hyzLC17P8zSUorGxMg+OLph/xlyBNWkWVmnDd5z3qlFL3Sz4aMHohaNli2gtE7fVJM6FlsahRVXEIiDhE2KBb+0PLNMVx6y8eyPmWJuSYjm/uvn8gwtGPsoi5xaM3tuKoOwzLHOuq4ue4zAMVuF2CjvKVkTkYRGs2aJ33H36pd8bxRxsU1rd6Jnbul7bId6ZDDmLWY7UivYMK83BZwFz8MxMJF4RL6yVhbLPPkOeh+BekKx748hL99OVm3zM4TYt5ahEQL/5yvmvHyvbo8XKWwU4VIRfw4K9BHgVAcQiY8zyBxD+R1ieI5JHmeRhf8z+6E2X3f0HtBsA4P8DNIDgzuoQHJEAAAAASUVORK5CYII=" alt="Ícone Tech" width="104" height="150"></div>
+    <p class="kicker">Proposta comercial · Tech</p>
+    <h1 class="gold">Controle de Produção Stampo.</h1>
+    <p class="sub">Da Ordem de Serviço à montagem, cada peça acompanhada em tempo real.</p>
+    <div class="ctas">
+      <a class="btn" href="#valores">Ver valores</a>
+      <a href="#modulos">Conhecer os módulos ›</a>
+    </div>
+    <div class="meta">
+      <span>Cliente <b>Stampo</b></span>
+      <span>Elaborado por <b>Tech</b></span>
+      <span>Data <b>26/10/2026</b></span>
+      <span>Validade <b>15 dias</b></span>
+    </div>
+  </div>
+</header>
+
+<section class="sec white" id="visao" aria-labelledby="h-visao">
+  <div class="in">
+    <div class="dhead">
+      <span class="eyebrow">Visão geral</span>
+      <h2 id="h-visao">Toda a produção, do pedido à entrega.</h2>
+    </div>
+    <div class="cols">
+      <div class="prose">
+        <p>O Stampo organiza a produção da fábrica em torno da Ordem de Serviço. Cada pedido vira uma ordem, e cada peça dessa ordem segue um caminho definido de setores até ficar pronta, com o início e o fim de cada etapa registrados no próprio setor.</p>
+        <p>O sistema parte de três cadastros simples. Os <b>clientes</b> dizem para quem se produz. Os <b>produtos</b>, com suas variedades e os itens que os compõem, dizem o que se produz. As <b>etapas</b> são os setores por onde as peças passam: Corte, Dobra, Prensa, Acabamento, Solda, Ponta, Jato de granalha, Limpeza de peças, Pintura e Montagem.</p>
+      </div>
+      <div class="prose">
+        <p>Cada variedade de produto tem o seu próprio caminho de produção, desenhado uma única vez no cadastro. Um item pode pular setores, mas nunca volta a um setor anterior. A partir daí, cada nova ordem só precisa informar o cliente, os produtos e as quantidades.</p>
+        <p>Com a produção em andamento, o sistema mostra em tempo real onde cada peça está, o que aguarda em fila em cada setor, qual item está segurando a montagem e quanto falta para concluir cada pedido.</p>
+      </div>
+    </div>
+    <div class="flow" aria-label="Fluxo do sistema">
+      <span>Cadastros</span><i aria-hidden="true">→</i><span>Ordem de Serviço</span><i aria-hidden="true">→</i><span>Filas dos setores</span><i aria-hidden="true">→</i><span>Montagem</span><i aria-hidden="true">→</i><span>Conclusão</span><i aria-hidden="true">→</i><span>Dashboard</span>
+    </div>
+  </div>
+</section>
+
+<section class="sec light" id="modulos" aria-labelledby="h-mod">
+  <div class="in">
+    <div class="dhead">
+      <span class="eyebrow">Módulos</span>
+      <h2 id="h-mod">O que o sistema faz.</h2>
+      <p>Os módulos de cadastro e de Ordem de Serviço já foram validados no protótipo apresentado.</p>
+    </div>
+    <ol class="mods">
+      <li>
+        <span class="n gold">01</span>
+        <div>
+          <h4>Clientes</h4>
+          <p>Cadastro de pessoas físicas e jurídicas, com nome e CPF ou CNPJ. O sistema confere se o documento é válido antes de salvar, e toda exclusão pede confirmação. A lista tem busca e ordenação.</p>
+        </div>
+      </li>
+      <li>
+        <span class="n gold">02</span>
+        <div>
+          <h4>Etapas de produção</h4>
+          <p>Os setores da fábrica, cadastrados uma única vez e reaproveitados nos caminhos de todos os produtos. Novos setores podem ser adicionados a qualquer momento.</p>
+        </div>
+      </li>
+      <li>
+        <span class="n gold">03</span>
+        <div>
+          <h4>Produtos, variedades e caminho de produção</h4>
+          <p>O catálogo de produtos, com os itens que compõem cada um e as suas variedades, cada uma com preço próprio. O caminho de produção é montado em um editor visual: as etapas são arrastadas para um quadro e ligadas em sequência. Ao salvar, o sistema confere se o caminho está completo, começa no início, segue uma sequência única e não deixa nenhuma etapa solta.</p>
+        </div>
+      </li>
+      <li>
+        <span class="n gold">04</span>
+        <div>
+          <h4>Ordem de Serviço</h4>
+          <p>O pedido de produção, com cliente, produtos, variedades e quantidades. A ordem passa pelas situações em aberto, em andamento, pausada, finalizada ou cancelada, e o sistema só permite as mudanças que fazem sentido: uma ordem em aberto pode começar ou ser cancelada, em andamento pode ser pausada ou finalizada, e pausada pode ser retomada. Cada mudança fica registrada com quem fez e quando.</p>
+        </div>
+      </li>
+      <li>
+        <span class="n gold">05</span>
+        <div>
+          <h4>Montagem e conclusão</h4>
+          <p>A montagem é o ponto em que os itens se encontram. O sistema mostra quantos produtos já podem ser montados e qual item está limitando a entrega. Quando o último produto é montado, a ordem é concluída automaticamente, com o tempo real do primeiro início até a última montagem.</p>
+        </div>
+      </li>
+      <li>
+        <span class="n gold">06</span>
+        <div>
+          <h4>Esteira de produção</h4>
+          <p>O acompanhamento visual da produção, peça por peça. Cada setor mostra a peça em trabalho, o tempo decorrido e as peças em fila, e um painel geral mostra as peças concluídas e o avanço de cada produto nas suas etapas.</p>
+        </div>
+      </li>
+    </ol>
+  </div>
+</section>
+
+<section class="sec dark" id="fabrica" aria-labelledby="h-fab">
+  <div class="in">
+    <div class="dhead">
+      <span class="eyebrow">Chão de fábrica</span>
+      <h2 id="h-fab">Dois toques por peça, ao vivo para toda a fábrica.</h2>
+    </div>
+    <div class="cols">
+      <div class="prose">
+        <p>Cada setor terá um tablet fixo, com botões grandes, que funciona com luva e com a mão suja e não depende do celular do operador. O operador entra com o seu próprio login, e o tablet já abre nas filas das etapas vinculadas a ele, mostrando quantas peças de cada item estão pendentes em cada Ordem de Serviço.</p>
+        <p>Para cada item há apenas dois botões: <b>Iniciar</b> e <b>Finalizar</b>. Ao finalizar, a peça sai do setor aprovada e entra automaticamente na fila do próximo. O sistema não permite finalizar mais peças do que as pendentes, o que evita erros de contagem. As ordens aparecem da mais antiga para a mais nova, e o supervisor pode subir uma ordem urgente para o topo em todos os setores.</p>
+        <p>Cada registro guarda o tempo de espera na fila e o tempo de trabalho no setor. Juntos, esses dois números mostram onde estão os gargalos. Se um operador esquecer de registrar, a produção não para: o setor seguinte pode começar mesmo assim, e o sistema abre uma pendência de correção, que pode exigir aprovação do responsável.</p>
+      </div>
+      <div class="prose">
+        <p>Todas as telas do Stampo ficam em comunicação contínua com o servidor. Quando algo acontece na fábrica, as telas envolvidas mudam no mesmo instante, sem que ninguém precise atualizar a página.</p>
+        <p>O Corte finaliza uma peça e ela aparece na hora no tablet da Dobra. O supervisor prioriza uma ordem e ela sobe em todos os tablets ao mesmo tempo. A esteira mostra as peças andando entre os setores, e os números do dashboard e o alerta de setor parado chegam ao gestor no momento em que mudam.</p>
+        <p class="q">Esse funcionamento exige uma conexão permanente entre o servidor e cada tela (tecnologia conhecida como WebSocket), mais elaborada do que a de um sistema comum, em que a tela só busca novidades quando alguém pede. É o que permite que a fábrica inteira enxergue a mesma produção, no mesmo momento.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="sec white" id="usuarios" aria-labelledby="h-usu">
+  <div class="in">
+    <div class="dhead">
+      <span class="eyebrow">Usuários e perfis</span>
+      <h2 id="h-usu">Cada pessoa vê o que precisa.</h2>
+      <p>Cada acesso é individual, e tudo o que acontece fica registrado com o nome de quem fez.</p>
+    </div>
+    <div class="cols">
+      <div class="prose">
+        <p><b>Administrador.</b> Tem acesso total. Cuida dos cadastros de clientes, produtos, variedades e etapas, cria os usuários, define o perfil de cada um e acompanha toda a produção.</p>
+        <p><b>Supervisor.</b> Conduz as Ordens de Serviço. Cria e edita as ordens, aprova a entrada na produção, pausa, retoma, finaliza ou cancela, define prioridades e aprova as correções de registros esquecidos.</p>
+      </div>
+      <div class="prose">
+        <p><b>Operador.</b> Trabalha nos setores. É vinculado a uma ou mais etapas, como Corte e Dobra, e vê apenas as filas dessas etapas. Usa somente o tablet, sem acesso a cadastros ou à gestão das ordens.</p>
+        <p>Como cada registro leva o nome do operador, o sistema sabe em tempo real em qual setor cada funcionário está trabalhando. O supervisor vê quem está ativo em cada setor e pode remanejar a equipe conforme a fila cresce.</p>
+      </div>
+    </div>
+    <h3 class="sub" style="margin-top:56px">Permissões por perfil</h3>
+    <div class="tablewrap">
+      <table class="tbl perm">
+        <thead><tr><th>Ação</th><th>Administrador</th><th>Supervisor</th><th>Operador</th></tr></thead>
+        <tbody>
+          <tr><td>Cadastrar clientes, produtos e etapas</td><td>Sim</td><td class="no">Não</td><td class="no">Não</td></tr>
+          <tr><td>Criar e gerenciar usuários</td><td>Sim</td><td class="no">Não</td><td class="no">Não</td></tr>
+          <tr><td>Criar e editar Ordens de Serviço</td><td>Sim</td><td>Sim</td><td class="no">Não</td></tr>
+          <tr><td>Aprovar, pausar, retomar, finalizar e cancelar ordens</td><td>Sim</td><td>Sim</td><td class="no">Não</td></tr>
+          <tr><td>Definir a prioridade das ordens</td><td>Sim</td><td>Sim</td><td class="no">Não</td></tr>
+          <tr><td>Aprovar correções de registro</td><td>Sim</td><td>Sim</td><td class="no">Não</td></tr>
+          <tr><td>Acompanhar a esteira e o dashboard</td><td>Sim</td><td>Sim</td><td class="no">Não</td></tr>
+          <tr><td>Iniciar e finalizar peças nas suas etapas</td><td>Sim</td><td>Sim</td><td>Sim</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<section class="sec light" id="dashboard" aria-labelledby="h-dash">
+  <div class="in">
+    <div class="dhead">
+      <span class="eyebrow">Dashboard</span>
+      <h2 id="h-dash">Para o produto X, em qual setor o item Y demora mais?</h2>
+    </div>
+    <div class="prose" style="margin-bottom:44px">
+      <p>O dashboard transforma os registros feitos nos tablets em respostas para a gestão: o que está acontecendo agora, onde a produção perde tempo e quanto foi produzido. Todos os números vêm de dados que o sistema já registra no dia a dia, sem digitação extra, e podem ser filtrados por período, ordem, cliente, produto, variedade, setor e funcionário. O acesso é do Administrador e do Supervisor.</p>
+    </div>
+    <div class="tablewrap">
+      <table class="tbl">
+        <thead><tr><th>Indicador</th><th>O que responde</th></tr></thead>
+        <tbody>
+          <tr class="sh"><td colspan="2">Produção agora</td></tr>
+          <tr><td>Ordens em produção</td><td>Quantas ordens estão abertas e quanto falta para cada uma terminar</td></tr>
+          <tr><td>Peças por setor</td><td>Quantas peças estão na fila e quantas em trabalho em cada setor</td></tr>
+          <tr><td>Setores parados</td><td>Quais setores têm peças na fila, mas nada em andamento há muito tempo</td></tr>
+          <tr><td>Equipe em atuação</td><td>Quem está trabalhando em cada setor e quem está sem atividade</td></tr>
+          <tr><td>Gargalo da montagem</td><td>Quantos produtos já podem ser montados e qual item está segurando a entrega</td></tr>
+          <tr class="sh"><td colspan="2">Tempos e gargalos</td></tr>
+          <tr><td>Tempo médio de trabalho</td><td>Quanto cada setor leva, em média, para trabalhar cada item</td></tr>
+          <tr><td>Tempo médio de espera</td><td>Quanto as peças ficam paradas na fila de cada setor</td></tr>
+          <tr><td>Tempo total da ordem</td><td>Do primeiro início no primeiro setor até a última montagem</td></tr>
+          <tr><td>Esforço total da ordem</td><td>A soma do tempo de trabalho de todas as peças em todos os setores</td></tr>
+          <tr><td>Espera para entrar em produção</td><td>Quanto tempo as ordens ficam cadastradas antes de começar</td></tr>
+          <tr><td>Tempo em pausa</td><td>Quanto tempo as ordens passaram pausadas e quantas vezes</td></tr>
+          <tr class="sh"><td colspan="2">Volume produzido</td></tr>
+          <tr><td>Peças finalizadas</td><td>Quantas peças cada setor finalizou por dia, semana ou mês</td></tr>
+          <tr><td>Produtos e ordens concluídos</td><td>Quantos produtos foram montados e quantas ordens foram entregues</td></tr>
+          <tr><td>Valor produzido e em produção</td><td>Quanto vale o que foi produzido e o que ainda está em andamento</td></tr>
+          <tr><td>Ordens canceladas</td><td>Quantas ordens foram canceladas no período</td></tr>
+          <tr class="sh"><td colspan="2">Equipe</td></tr>
+          <tr><td>Produção por funcionário</td><td>Quantas peças cada operador finalizou, por setor e por período</td></tr>
+          <tr><td>Tempo médio por funcionário</td><td>Quanto cada operador leva em cada etapa, comparado à média do setor</td></tr>
+          <tr><td>Distribuição da equipe</td><td>Em quais setores cada funcionário atuou ao longo do período</td></tr>
+          <tr class="sh"><td colspan="2">Confiabilidade dos dados</td></tr>
+          <tr><td>Pendências de correção</td><td>Quais setores deixaram de registrar peças e precisam regularizar</td></tr>
+          <tr><td>Registros estimados</td><td>Quantos registros foram lançados depois, com tempo estimado</td></tr>
+          <tr><td>Fechamento do dia</td><td>Compara o que foi produzido com o que foi registrado em cada setor</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="fine">Como os setores trabalham ao mesmo tempo, o tempo total da ordem é menor que o esforço total, e os dois aparecem separados. Os tempos podem ser vistos com e sem os registros estimados, para que as correções não distorçam as médias.</p>
+  </div>
+</section>
+
+<section class="sec dark" id="seguranca" aria-labelledby="h-seg">
+  <div class="in">
+    <div class="dhead">
+      <span class="eyebrow">Qualidade e segurança</span>
+      <h2 id="h-seg">Padrão profissional desde o primeiro dia.</h2>
+      <p>Seguro, preparado para crescer junto com a fábrica e testado antes de cada entrega.</p>
+    </div>
+    <div class="cols">
+      <div>
+        <h3 class="sub">Segurança</h3>
+        <div class="prose">
+          <p>Toda a comunicação entre tablets, computadores e servidor é protegida por HTTPS, a mesma criptografia usada pelos bancos. As senhas são guardadas de forma criptografada, e cada ação é conferida contra o perfil do usuário no próprio servidor, não apenas na tela: um operador não consegue aprovar ou cancelar uma ordem, mesmo tentando por fora do sistema.</p>
+          <p>O acesso expira após um período sem uso, as mudanças importantes ficam registradas com autor e horário, os dados recebem cópia de segurança diária e os dados pessoais, como CPF e CNPJ, são tratados conforme a LGPD.</p>
+        </div>
+      </div>
+      <div>
+        <h3 class="sub">Arquitetura e qualidade</h3>
+        <div class="prose">
+          <p>Telas, servidor e banco de dados são partes independentes. Mais setores, tablets, usuários e ordens são atendidos aumentando a capacidade do servidor, sem reescrever o sistema, e novas funcionalidades entram no futuro sem afetar o que já existe. Os dados ficam em um banco relacional, adequado para histórico longo e para os cálculos do dashboard.</p>
+          <p>As regras principais, como as situações das ordens, a contagem de peças e as permissões, são verificadas por testes automatizados a cada mudança no código. Cada entrega passa por revisão em um ambiente separado antes de chegar à fábrica, e as telas são aprovadas em protótipo antes do desenvolvimento.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="sec light" id="investimento" aria-labelledby="h-inv">
+  <div class="in">
+    <div class="dhead">
+      <span class="eyebrow">Investimento</span>
+      <h2 id="h-inv">Sistema Stampo.</h2>
+    </div>
+    <div class="amount">
+      <small>Sistema completo, do design à implantação na fábrica</small>
+      <strong class="gold num">R$ 15.900</strong>
+    </div>
+    <div class="cols">
+      <div>
+        <h3 class="sub">Escopo e ajustes</h3>
+        <div class="prose">
+          <p>Todos os módulos descritos nesta proposta podem ser acompanhados pela empresa durante o desenvolvimento e ajustados conforme a necessidade, inclusive nos 90 dias após a implantação. Telas, campos, regras e indicadores podem ser refinados com o uso real.</p>
+          <p>Os ajustes valem dentro do escopo definido. Novas funcionalidades, como um módulo de criação de orçamentos, não estão incluídas e são avaliadas e orçadas à parte.</p>
+        </div>
+      </div>
+      <div>
+        <h3 class="sub">Identidade visual</h3>
+        <div class="prose">
+          <p>O sistema aplica a marca da empresa em todas as telas, mas a criação da marca não faz parte deste escopo. Antes do design, precisamos receber a logomarca em arquivo vetorial (SVG, PDF ou AI) nas versões colorida, clara e escura, a paleta de cores com os códigos de cada cor, e os ícones, imagens e fontes da marca, se houver.</p>
+          <p class="q">Enquanto algum desses itens não for enviado, o sistema usa um padrão neutro e profissional.</p>
+        </div>
+      </div>
+    </div>
+    <div class="cols" style="margin-top:56px">
+      <div>
+        <h3 class="sub">Incluso</h3>
+        <ul class="plain">
+          <li>Design de todas as telas, com aprovação antes do desenvolvimento</li>
+          <li>Desenvolvimento de todos os módulos descritos nesta proposta</li>
+          <li>Publicação em servidor seguro, com cópia de segurança diária</li>
+          <li>Treinamento dos perfis Administrador, Supervisor e Operador</li>
+          <li>Correção de defeitos por 90 dias após a implantação</li>
+          <li>Suporte disponível 7 dias por semana</li>
+        </ul>
+      </div>
+      <div>
+        <h3 class="sub">Não incluso</h3>
+        <ul class="plain x">
+          <li>Criação ou redesenho de logomarca, paleta de cores e identidade visual</li>
+          <li>Custos de hospedagem, domínio e serviços de terceiros</li>
+          <li>Integração com outros sistemas, como ERP ou contabilidade</li>
+          <li>Rastreabilidade de cada peça individual por etiqueta ou QR code</li>
+          <li>Exportação do dashboard em planilha ou PDF e exibição em TV na fábrica</li>
+          <li>Importação de dados existentes (produtos e clientes são cadastrados no sistema)</li>
+          <li>Novas funcionalidades após a aprovação do escopo</li>
+        </ul>
+      </div>
+    </div>
+    <h3 class="sub" style="margin-top:56px">Para alinhar antes do fechamento</h3>
+    <ol class="steps">
+      <li>Quem contrata a hospedagem do servidor e o domínio (endereço do sistema na internet)?</li>
+      <li>O sistema ficará em servidor na nuvem ou em um servidor próprio na fábrica?</li>
+    </ol>
+  </div>
+</section>
+
+<section class="sec dark" id="ia" aria-labelledby="h-ia">
+  <div class="in">
+    <div class="dhead">
+      <span class="eyebrow">Stampo.IA</span>
+      <h2 id="h-ia" class="gold">A sua fábrica, em uma conversa.</h2>
+      <p>E se você pudesse perguntar qualquer coisa para a sua fábrica, e ela respondesse na hora?</p>
+    </div>
+    <div class="cols">
+      <div class="prose">
+        <p>O Stampo.IA é um assistente de inteligência artificial que conhece cada peça, cada setor e cada ordem da sua produção. Sem relatório, sem planilha, sem esperar alguém montar um número: você pergunta como falaria com o seu gerente, e ele responde.</p>
+        <p class="q"><i>Quanto tempo levamos para produzir um Quadro de comando? Qual produto mais fabricamos este mês? Onde está o gargalo da produção hoje? Resuma a semana em cinco linhas para a diretoria.</i></p>
+      </div>
+      <div class="prose">
+        <p><b>Respostas, não relatórios.</b> O dashboard mostra o que foi planejado; o Stampo.IA responde o que ninguém previu, no momento em que a dúvida aparece.</p>
+        <p><b>Dados reais, com origem.</b> Cada resposta vem dos registros da fábrica e mostra de onde saiu o número. Se a informação não existe, ele diz que não sabe.</p>
+        <p><b>Seguro por padrão.</b> Só consulta, nunca altera nada, e cada pessoa recebe apenas o que o seu perfil já pode ver.</p>
+      </div>
+    </div>
+
+    <h3 class="sub" style="margin-top:64px">Quando o Stampo.IA começa a responder</h3>
+    <div class="prose" style="margin-bottom:22px">
+      <p>O desenvolvimento pode começar junto com o restante do sistema. O uso no dia a dia vem depois, porque a IA só responde bem quando a fábrica já tem histórico real registrado no Stampo.</p>
+    </div>
+    <ol class="steps">
+      <li><b>Construção.</b> O assistente é desenvolvido e testado em paralelo com os outros módulos.</li>
+      <li><b>Acúmulo de dados.</b> Com o Stampo em uso, os setores registram ordens, peças e tempos reais. Perguntas como qual produto mais fabricamos só fazem sentido depois de algumas semanas de produção registrada.</li>
+      <li><b>Ajuste com perguntas reais.</b> A partir das dúvidas que a equipe realmente faz, as respostas são conferidas e ajustadas até ficarem confiáveis.</li>
+      <li><b>Uso pleno.</b> Com histórico suficiente, o Stampo.IA responde com segurança sobre tempos, volumes, gargalos e tendências.</li>
+    </ol>
+
+    <div class="cols" style="margin-top:64px">
+      <div>
+        <div class="amount">
+          <small>Investimento do Stampo.IA</small>
+          <strong class="gold num">R$ 6.900</strong>
+        </div>
+        <div class="prose"><p>O Stampo.IA completo, do aplicativo de conversa ao ajuste com as perguntas reais da equipe.</p></div>
+      </div>
+      <div>
+        <h3 class="sub">Custo mensal da IA</h3>
+        <div class="prose">
+          <p>Além do investimento para construir, o serviço de inteligência artificial cobra pelo uso, e o valor varia com a quantidade de perguntas feitas no mês. O serviço é contratado em uma conta no nome da própria empresa, com pagamento direto ao fornecedor; nós fazemos a configuração e a ligação com o Stampo.</p>
+          <p>A empresa acompanha o consumo e pode definir um limite mensal. Se a fatura do serviço de IA não for paga, o Stampo.IA deixa de responder até a conta ser regularizada.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="sec white" id="valores" aria-labelledby="h-val">
+  <div class="in">
+    <div class="dhead">
+      <span class="eyebrow">Resumo</span>
+      <h2 id="h-val">Valores.</h2>
+    </div>
+    <table class="vals" aria-labelledby="h-val">
+      <tbody>
+        <tr><td>Sistema Stampo</td><td class="v">R$ 15.900</td></tr>
+        <tr><td>Stampo.IA</td><td class="v">R$ 6.900</td></tr>
+        <tr class="total"><td>Total</td><td class="v gold">R$ 22.800</td></tr>
+      </tbody>
+    </table>
+    <div class="cols" style="margin-top:48px">
+      <div class="prose">
+        <p><b>Forma de pagamento.</b> Definida em conjunto com a empresa no fechamento, com desconto para o pagamento do valor total à vista.</p>
+      </div>
+      <div class="prose">
+        <p><b>Nota fiscal.</b> Emitida para todos os valores contratados.</p>
+      </div>
+    </div>
+    <p class="fine">O custo mensal do serviço de inteligência artificial, a hospedagem e o domínio não estão incluídos e são pagos diretamente pela empresa aos fornecedores.</p>
+  </div>
+</section>
+
+<section class="sec dark end" aria-labelledby="h-end">
+  <div class="in">
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGwAAACgCAYAAADpTIkCAAAcbUlEQVR42u2de5xcVZXvf2vvfaqTAAIBgRkUMhEZBhCROBcRGB4OgqCYCF0N8oGIOo4yApLupFXEkkFMP0Amw2MUkIgMoxMfiM69Vy+QBwjIMKCiRh4Kwmd0JN2NBk1Id5291v3jnKo6j31OVadfVd21Px/o6vOoTu1vrbV/a5299yK0W6w9t3b5PENysCI5nKAOJ5KDFNFeEFpAICiNMQKNaIVfC9FmxfqnY9v9za/+4G1/nI5/H7URAU+vOa3D22XhW7VSZwI4kQivM1rvphVBEQWdFP5URFCKQAQQCNbKK4rwghA9pEm+Owq1fmHx5q1tYFPQnrjpvXvuouUcpej9ILx5fsHAsoBZgs4hCv8L4FReq8hxTQrGKBSMArPAsjxDwB0s5pZdizf9rg1sEtqG0gnmz/fb971aq96C0YeKAL6VAEwmnMDCiAiKojAJCuF9RCh4GgWjUS7b/wbJDVutuXHf4k1/agPbWav65/ccoo25pkOrM4gIPjMIoeurggh/Ig2n4hYpclxFYFYge0ajYBTGfP4vZqxY0PmFB9rAxtl+tOasYodRawqe3m+sbFMurzFo0Wtr16mY66xZZuBmeZvPKC04+wvXtoE12B5fs6ynQ+vPkSLPsqQ6tgYiAYcICnGLyoIWez/UXhsdjHE7yvYL83m/S6l45VgbWEYTgB67btnnOjz9cRGBCCLuyw0tdawKzQEHjUFTijC/w8Mro+W18xcUPkKnXz+6M59HzXZYj15z5uqCoY/7PsNagYhAgOBnCDD9GuDYMYAhYJHYcRaBIOdeAIzgd8uCV0bLmN/hXbhje/n9O/uZZi0wEdAj15y5uuDp3jGfYYUTHY1qZ3MMWhRIAibSMKvQIBlfgtoXJAgZGELSKaWSagOLWNbDg+9cXTCqd8xnMEvVSiqdyDEIEasL7g9fJzqfkT4WfR2x3NSXIPw7lgXC8iqcuHN9b2YjsAf73rm6w+jeMd8CEowhAQaCEEBSARscAwWdC6LA/4WZDYhACAj/Fwx+4RuIEGrvUnn/yn3R46j+bUBgFGFU5HE66Uq/DQzAA31n9HmGess+QwCoKh2qIqqBqXU0g6CQgAYCQ6Cq0GqdzySBiUh4DSj4exGwgtr7iAjmFTS2jZZ/x9A7Le/1rMpgXP2OPs9TvZaDsSXoKoroYYrpY0oJZQoNiVJCmsgtsImSJynyp6j6lSh4GtbKS6PM5y4855ZH5zow2nD1qX0Fo3v9UAlWOjEGJQaN3NAIcdCO+ykJLRUgxaEVjIZv+SXfl+Krz7vtvol80JYHJgI6zpy6umB0b9lK6M0IUbNIQaO4mZEDZCa0jOMklLJAAuAFSeERtlx89QVr10/087Y0MAHo/5lTVhd0aFlIwMiCJlTHtVEVbApOBsxAa8SPFrSGZRmxZe7a9323r5+Mz6xb2bK+hxAWc00n1EwmGxo5xq6qB6OUG2wMWvzaglFgkeGyxTl/fuHt903W525ZYH8tf9vf4anecggrNfgnOp4oMY5Vrq/CzLu3ci3S4x9R4u8CBaMhguEdbM854MI77pvMz92SwL7zqZP6C0avsraSG6SUNVVfR4UCUXysilxHyQEuAo1c94BqX4LI9Z7WYJaRMvicRRfeed9kf/aWA/btT57UX/D0KssCjnU23NCq1pBtQajzPpQ65hAgAnhGw4q8VBZ0Lf7A5MNqNWD0rU+e0N/h6VU+V0JSyu5sjB8aEUVCXTc0QVJVBtd6RgUCg7l40N99df1UdUJLABMBHTF6Ql+H0atS0j0LGmVDk+S4Vk++5wTGFYFhRUbKvhQP/vDX1k9lX+hWgPWNjx/f58UsK9m3SQBwZzdA6RjZoQrHA80zGiIybC13HXLRuvVT3R+62WGtW3V8n2fUKt9GpDuRA0AEWkK1pca0XCkft07KGRsLWkFYhsdEug696Ovrp6NPmhkYHbL9+D5PU2hZCTdHcUVHmWMUnNfXxrQ6QoXcoD2jwIJha9F1+EenB1ZTA7uz+9h+o2mV5eijjCS0qA1Q2ppy3R1FLqVEGBA9n46/PKPBVkZ8sV1HXPLN9dPZL80IjO647Jh+z6gAVsqtJcDEErIZsVgKWgJKRi4x9r7hY65CqAbFSvHIj921fro7p9mA0e2XHROMWRx9AOjofMmBJvWg5as+FzQJpTtbjFhG8agV0w+rqYCJgA78/dH9BaNW+VXpHu3IRGdXn+w6oBFVpT81AI0yrC8KzdMKIhgW5uKbu+/eMFP9pJsF1tpLju7zPFWT7jlKMAYtkfOLxlipDHoj0BxhgBcmcq1I8X91f2fDTPaVbgZYX7rkr/uMVukMBhqERnFoBKq+D1E6BZUHTRIPKb3gEckwLBXfsnJmYc04MAHo5uEl/Z4Og2JxiIo8aEirx/RMAFfWA84QgRKS3hgFZh4uW+o67uPf3dAM3mhGge33D0sGPKVWVtRgdYUI4muyoo9AojN0QbXsBlUVH1Uti5zKkiKzn+KWGc3aeyYIim1Zuk64/H+vR5O0mQJGN35kyYCnaaXlyjwk12ON2hhUScy6HkJSnnR3nSN3zrGqBrUCWxkpW3SddMX/bRpYMwWMrv/7N/V7umZZcGYxamNQFJrTVbqg5Y1b4sovUtWymGVkVGzxlCu+31Swph2YCGjv3x3Z72kdwBL3OOSC5gSQmfxNi4e06nSoQU2wIsNipfj2T9+zAU3Y9HTCWvOhI6uWlSnPM6ChAWiUcU8mtIhC9LSCFRm2Y37x7Vfe25Swpg2YCGjNB4/oNwk36E4njQNa9TjlQqM6WQ9TmTDjc/H0q9Y3LaxpASYAXfffaVjVb38enIYtENWMvTigkSMdVXkfEwiMYctSfGeTw5oOYLTrhYcPeFqt9F0CIwotIxB2Ho+4uuja4+gXILrmOPWciwCRUA0yhsuQ4pktAGuqgVH/8sMHPKN6/Mg2CsiCNl63SDmJ4ZxEbuW1ZwgSPM8qLr26NWBNJTBavfzwAc9QTyAwIpMv60CjhqEh//lXBrQgziIwy4gwF5eu3tgysKYEmABUOP/QgYJRPcwceUQSh0bkhoZIxiMXGrLHsgoY15z5inQf81E8u//+loLlklwTaqUSlPfLQ/sLHvVUlXskxVRLK8WhRReDRzcwoYiYyDqf3KIhdU3k3iDdhCEBFTv7N21EC7ZJs7ASoLzXHNJvDPVYQW12E+W4NDgsbTzxWc4UgGQaSxsFYRryrS12DT7QkrAmDZgI6IGnDxkwJrCsJCzKASBA41DGAa3yfJOAQLqzDAlL8dxrH2xZWJMFjPTTBw9oo3oq6SZyzDoiIvf4VXVf6SA4uuCgmsWPvI6PW44MBwFaK4jIkBUqntfisCYMTACicw8e0Fr1WInMwaB8aMl4KbUsNRFzUYawSE3GSVib0QoMGRafi+df93DLw5oQMAHo010HD3qaeqxIsFofGct6MlwYZSjEtHzPmw3lfm20gmUZJpbO89c8Mitg7TQwAehTXQcNepq6LadFZ03hucAgvQyo3vMtZ8YDmWkqEyZyBehcPotg7RQwEdDlmw8aLGjVzZJY65FIMeVCq871c4uKJPTsjEcikasVWGRIhDvf/8+PbsIsa+MCVgLUPZsXD3pGdcey7lmPMRqARvUyFBnQXKAranCMufihGx6bdbDGBaxUgirvvXhAh7BSnR2D4hh3KGPcii09dVmP25KSaawKLB9S/MiNj23ELG0N7XckAI3+bNGA0tRdWaZa2VsJ1Z+1fZiCw1L7mdhcC0jv81S5Jn6u9i+Q2h+J7fEEAFoBlnnI+rMbVqMWRq8sWzxojOrmyCTP6Dc8nn6KW1os/kpYGiUtLetcIviO5giDOAtDPqP4D1+c3bAaAUarli0aNIa6mWtT1p0BcSyzkS3LKSH5KWtFivNcIs4KnxSz2OLFX/zRrIeVC0wEtO2JRVXLSoqA8UAjBzRqAJpkKEGJxFm+L52X3vKTOQErEejEBca2Jw4YMFp3M8evpsSU6LghUaZ7TGXt4XaBtYy76xhVc4MQGRJQ56W3/HgT5lDTbliLBrRW3WzFMfMoOjM3DS01WzfH0pBlaRS35OSYxSJDllTnZXMMVgpYqQT1pycWDRpN3Wwju/0l1/wm5rHXg4YcaOIat5LpphCaUQoiskVYit1femLOwYrJegHoT08sGvQUrbA2vlq/KqlR3WwT1c0iQwlelfeIS34kJH80FBDn+Yh0D/+UQKCIwMIBrLU/m5OwqsAEoJXLQlgsmcFY5ElXLWZKnJbELRIBixi0JNx4DFY9JwJNBMs85AvmNKyqS9y2bNHnqgvA66mUxJhGGe6xMcmfzowQUUzEaEWA4LeKcNaqL//8B5jjjVYsPfBcRXQHEbRIgzc5hEhyDWM6cI7nDuPPMBNLhiKvSWHbmG+7f//Kjns9pbxm6jzLoHm+3rZ9vnpl3qjeMfidp6a8hhj1LF30olLYh6VJvkGIzMcI9kv2RWQ7gbzm/MqLD6EySF6C4LcgPAfIowr02Pzy2BNX/sf/bJ9cYMsWPUuEvxBpYjfQAgVHorElAShbsQQ8A8F9UPLNrXvv/YObb36sPAkWduCPlVJv5GYm1qIZCVIETUDZihDkPwF1644Fet31d/7y5YmoxC2t8A1utSYAmAVlG0SaSqmjtcYt817xH1yx7IDzSifsXM0ABdAz7e6dDoEi8K1AER3uKf2v2/da9N3L3r34DeMGJoofb3fn9IKzLNCKTjOa169YdsAHxxWHHff6vTSTXECztA5LszYWQBEWKKXOPOYvd194yr57bNz0/Na69VgUv7LtFwCeo/ZANiPQhAWeUZdsW0h3XvruA/eoC+zae17cRsBGrdodOFPipGwFnqb3eApf6+1cvHs9lQhLuNu2df2MtrIVeEadaq299eLTDurIBbabXvAgizyjVdstzig0X+ApdbY3z1+dKToAYNPmobFjD91zD63oZG7b2cy6SAG0wlveesirfvnQk1t/6rQwAPC1v7Zs+cW2kc38mEYgEtC1PUtf+zqnhQHADze//Mdj/nKPXT2jTmxb2cxD87Ta1Qrt//auP3xj06baU6+YNhQ7dsOYlV/ptsRvChGiCcu2/WTRu5wWBgAPP/2n7ccduseLAM6SOVb2vhmbUkQCef3Rb9jtjh9uftlPWRgADH7r1+ssyx2ebvOa6RaksNQS5asznC6x4hk9lFf4Pj9h2tBmvBEAEvpIqRSwcuY3+r792xHLeJ9l3tKOzWbeygAct+3HBx6RCQwAPv+d539kLV3ALFtVO201s4rRqAIUllUsLrd1LzvgDEXqTkW0u23r/RlpWhF8Kz/c9Y2/Pr4hf9e97ICTFdRXtKb9fduGNu3jGAEi8nJZ8JaGVmA+/OTW5447bK/vM/MbjaYD2shmQOKT6lAkDzW8ZPbBX/x+aMmSvb+hxrigSJZopUzbQ05rTAZh+c1OScDuZQecrEh9VhMdIzUl025TPI5ZK/fs1D4dDz+59blT9tn9zh3z5FkIDtSK9tOK0MY21ZJRdkw4yOo+Zd9dsMv8M5TCBSL4G6NpNwAIlthGF5a324SFB8uWSY2KV75n8etJ+GQBThHBUSD8mVY0L1mSstnjHj+6Nq6JgDHL1in791zU+epdF/Cui0VwIIksAvBnAPYEZH7zehwSIiFPmaWksHtt+ZokrksiTq3GcgwPtbVYstNfJvHbeadE++x5h1yhFD5lBQXh2qLC2iLEsOsiMKW2kjFyfXSdWwS8xDGPZ8WQiLzcTjpF+uTq8/+qzxj1jywoRMsyprcIjBc8TW7ZFFsrB8SWULlqcDZiNYGoo/9sW1gV1mGrjUZvpV50dekuorv6JK0mvQwY0etTx+OWJgl3KTmwmPlFQE5vWxhAq5cftrpg0MvV/fXjC+2jixLJYWnRzaQB9w5BLkuL1gbMMjOtCCIyzJD3Dt71wuN6rtPqW35Yn6ept1rHjFy7qsbHkpTipVg16Ri0pNvMLppFKWYVWL7lcz7/7RfWA01e2n6q28Dyw/qMUb2cWNtNrm4kBwyKV6ilnOuSy4Rj+3FFvg3kgnX3C/dVIc5ZWBe+oc/TqtdG6kVTpOSic6/isM5LrHNTi/Ld0OKVnOKiI7nHiVEEFhlh4a6KZc1lYPT5D7yhz2jqjeVA83bmSbi4bGiUDy1ZcxNp2FoRGDLCwsVr73ohVSFwrgGj695/RJ8xqjpmJbeeyN5tLr7buguaaz/O8UDToWWJSOc1d73gLDMyZ4AJQAs/eESfNmoVR2C59gtJl2yhlBVlQ8sWLXnQtFIQyDALFwe/9XxmTZi5AowWfujIWHFvcphDGppju0FKipJ6QsQNLXqd0YHAKFvquuauX+cW8JkLwOj6EFZ8px9Kua84NDigOeS9c2xLa83U/eH/TCXOInQNfvPZulVtZz2w6z98VL8Xg0UOC3KlndyuL3neVbXC9QVwudJADWLYAl39X3+2oRLEsxrYDR8+qr8Q7qGVMpOdhoZMaDQOaCaoCTPiQxqGNZuB0U0XvTmEFRcYVAdankrM24efksnfjGQxgaA1QVhGLNDZ9/Vnx1V0btYBEwHtP/zmPk/TKp/dOSRyurDGoGVZWnpXOjc0rQjCGAakePW6X427QuCsAiYA3Tq8pN8zepXPYXY8aSWpei/5sVV9aGgYmlYKEB5m0cWr1j2zU+Uc9WyCddvFR/cbo1day6lCck7X5ohw86C59uN3j33p48EaBRmyVnVdte6pna69qWcLrLUXH93vGbXSD2G5gaSFgeSpPsdej5KAJq6AOPE+RhMYGB5jnPPZf396QoVSZwWwv7j06H7PqFU+c+gGyW1FSTUXXip5qhDx5ylVaIl4jjL29A/UIIatla6rvvb0+ol+1lYHRrdfdky/F2YwUh3sSC1lZTLcUt6VHMwZ5xJZDKMprFwhxc989elJKUGsW9kNvu5jx/YXPFpVm5aWVbU2XeclqzpTKneYUpjICJLTbtAyRixLsfRvT01aveiWBCYCuvOPx/YXPFoZhVWvpgvlFPrOBUsO9+eK5cLXYTGEYWbu/PS/PbVxMj+7bkVYX115bH/BqBqsjMp97pouyK+9mQs2Ghy7VGclzpJhWO68/M7JhdVywERA/957XL+n9crUmEXussDuus9UF1rmNciGFiRyMeSDuj75r7/YOBV9oFsJ1tcjsETSUMShDClSZzPTinIyHUkVmfVYRiuCEIaE0fWJr/x8w1T1Q6sAo8NH/6a/YPTKcnQFKMEhuR3FDBwxk0souKElpXw65jJKgSFD7EtX7xTCahVg9M1P1GDVCvjUqzibbUXkrAuNjJxiXt6xWsBnmEmKq778841T3RnNDozu+sSJ/Z6nV/o+xysh5UALqkpkVK7NhEYNQYveZzSBWYYtcefKL009rKYGJgAddfmJ/Z7RQbpJsmtiIiMvmDzt6vT0e2Rk7xNTBLQmMGPY923nyrXTA6tpgZVKJfXy8Xqg4IWwcopz50PLuM5Vp8xR2McJLcxgiMgQQJ0rbvvptFZbajpgIqDtG8xAweiesmU0WiWdxgUtwz3mJIBrQXEo3a0UP3brT6a9NJZuNlj/p/S2gYKne8o+x5Oy44AmDcZZeWOaC1qYyB1icHGmCqU2DTAB6Ht0ykCHF1iWREocURhjAYlYyNXxmflER7Y++QAzJRkRyboHllVm6rrk5pkrQdw0wN76mVMGC57uiY1ZyZ5NQaNMaGgImuM6x7kg605DPqN4yc0zW9xbN4MbPE6fOthR0D2+H5k3mCnLkwowG0oKbkPQ4ucCWBgeIyle/C8zX4ldzzSsDVefOtBh0m4wZWGOwtxUD2oD0NLna+e84BHJkCh0XnTDY01Re3PGgJVKJUUPLQgEhlO611xUvqWRI9aicVla+n2oOmZZXzr//sb/appCqXpmYEGd3LHLQMHTPbVErssN5h2nzM5GXbfqnkRaEThGK7DwkLW2+KGbHmuqqrZ6JizrbfN3GZjn6e6yH7jButI9EwRyoO3MY5fqjNwtZd/v+rsbZ37MmlFgIiDvkd0GOzzdXbaSDYsoVaVdnInYHJiuaQCIw5XE+cCyZIhFuj5w/aNNB2vagZ2267sGOwq6p5ylBnMtKe0iybUcxHEfud4j4R4rsHyW4oVrHmlKWNMGTAT0jt3OvCYIih1jFrki2PouktCYrHfnDmv/PmMUmGXIinS+758eaepK7Ho6YD163dLBDqO7y8kZuXXjLULmWtSs/OG4oFHVssqWO5df98OmhjXlwEqlktrtx3sGsCqTPHNygXlBslM8NCJScp6ZGa1gGUNjvt8SsKYUWKkEtXSPhQMdnul2BsUNQ8uW6dRgUth13tMKLNjiixTPv/ahloA1ZcBKpZJauufegx0FHYHlGJ/qduz4YqtG8owABWOWYItYLp47+IOWgTUlwESE9vnZDVVYLOFYkwUtUyVmWd4EoIWwRGSL9W2x2GKwJh2YALR5n82DBaO7x0JYNT4BNMlQerHjGR4xX1nWD5ArQTELFc/uv7/lYE0qMBHQL/bpDIJin8FwqzlKWBi5Hokkg+OsxywNQpNwzLIiQ5ZRfM/qjS0Ja9KAiQg99YUnB+d5tTGL8sRDhtJzQaPMjH0daJHjnlGwLEMsOHvZ5zbejxZuEwZWKpXU/k9+8Zp5Bd095kez7tFNRRxz/DKUXmp5awbohsZBCizLZxmyLGcvvXpDS8OaMLB16zr1ad4fBucV9Ioxa4OpaBWrS7nBbGjZHY/x3ZM47mkFC9lSBncuvar1YQGAmcjNS7aaz8zv0Ct2lH1AgtqolQ5TImAKJ08HOwwDoMjxUKYIAZX7qtngyu/h29WyxOH2q8E9lLwnPB4W/QSzbLFMnUuvnB2wJmRhz916/puMorVWRLPAmdejukqQIu6yEWmPug8kg3pbGiyyxS9z8Yx/vHfWwAJyCr7VJU04eV6HLlRgEVFsT9zKEtLaYrfaWEaRc+E6uMg5qj6op6x7knFWBGLBaIhgS5m5ePpV927CLGs77RJFxNT6Ku6aCJWYy+G2qq4ueC3hOULSLVZcYXVQrLnOqCuNHPcMwVreArGdp5dml2VNGBgZtWGszNYopS2H6jDsbAUJ4rC641PWOam5wuqwKGloEXieIfiWh5ht59uuuGdWwpqQS3zt8tsfZcG1BU9Dkaq6rOrYFHGRcRcY/b2Rc7XVKFnv1+EpMON3ED5rNsOaEDAiktc8v/gTo2P+oKcVjFYAASrW+RmdnIKRB622N3zs/cLf53sazPIrsXTGiZd//wHM8jYplSF+8+ULPgpBn9a0y2jZhwjA1VolYfUEkWqdkuoxZJxL3Vf5PXjNEoTnBaMwWrb3j/r0gZM++d1fYg60SakMsf/7vnKDL/YdPvPjCzo8aE0Oa0q4QMo5hyzLC17P8zSUorGxMg+OLph/xlyBNWkWVmnDd5z3qlFL3Sz4aMHohaNli2gtE7fVJM6FlsahRVXEIiDhE2KBb+0PLNMVx6y8eyPmWJuSYjm/uvn8gwtGPsoi5xaM3tuKoOwzLHOuq4ue4zAMVuF2CjvKVkTkYRGs2aJ33H36pd8bxRxsU1rd6Jnbul7bId6ZDDmLWY7UivYMK83BZwFz8MxMJF4RL6yVhbLPPkOeh+BekKx748hL99OVm3zM4TYt5ahEQL/5yvmvHyvbo8XKWwU4VIRfw4K9BHgVAcQiY8zyBxD+R1ieI5JHmeRhf8z+6E2X3f0HtBsA4P8DNIDgzuoQHJEAAAAASUVORK5CYII=" alt="Ícone Tech" width="58" height="84">
+    <h2 id="h-end" class="gold">Vamos começar.</h2>
+    <ol>
+      <li><b class="gold">1</b>Reunião para apresentação do protótipo e validação dos módulos definidos</li>
+      <li><b class="gold">2</b>Envio do material de identidade visual</li>
+      <li><b class="gold">3</b>Aprovação da proposta e forma de pagamento</li>
+      <li><b class="gold">4</b>Início do design das telas</li>
+    </ol>
+  </div>
+</section>
+
+<footer>
+  <div class="in">
+    <span>Proposta elaborada por <b>Tech</b> para <b>Stampo</b>.</span>
+    <span>Válida por 15 dias a partir de 26/10/2026.</span>
+  </div>
+</footer>
+
+</body>
+</html>
